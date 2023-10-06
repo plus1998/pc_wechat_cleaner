@@ -5,7 +5,7 @@ choco install microsoft-build-tools -y
 ```
 
 ```shell
-npm run install
+npm install
 ```
 
 # Dev
