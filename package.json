@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "node app.js",
-    "build": "pkg ."
+    "build": "pkg .",
+    "build:win": "pkg app.js -t node12-win-x64 -o dist/wxwork_cleaner.exe"
   },
   "pkg": {
     "targets": [

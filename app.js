@@ -7,7 +7,7 @@ const { removeNotNullDir } = require('./service/clear');
 const { notify } = require('./service/feishu');
 const dayjs = require('dayjs');
 
-const excludes = ['All Users', 'Applet', '.DS_Store']
+const excludes = ['Global', 'Profiles']
 const clearDataDirNames = ['Image', 'Video']
 
 const documentDir = path.join(os.homedir(), 'Documents')
@@ -16,7 +16,7 @@ if (!fs.existsSync(documentDir)) {
     // 创建
     fs.mkdirSync(documentDir)
 }
-const appConfigDir = path.join(documentDir, '微信清理工具')
+const appConfigDir = path.join(documentDir, '企业微信清理工具')
 // 检查
 if (!fs.existsSync(appConfigDir)) {
     // 创建
@@ -26,7 +26,7 @@ const configPath = path.join(appConfigDir, 'config.json')
 
 const clear = async () => {
     // 微信默认文件夹
-    const wechat_dir = path.join(documentDir, 'WeChat Files')
+    const wechat_dir = path.join(documentDir, 'WXWork')
     // 检查目录是否存在
     if (!fs.existsSync(wechat_dir)) {
         console.log('⚠️ 微信文件夹不存在，仅支持默认文件夹');
@@ -41,7 +41,7 @@ const clear = async () => {
         if (excludes.includes(dir)) {
             continue
         }
-        const bigFileDir = path.join(wechat_dir, dir, 'FileStorage')
+        const bigFileDir = path.join(wechat_dir, dir, 'Cache')
         // 检查文件夹
         if (!fs.existsSync(bigFileDir)) {
             continue
