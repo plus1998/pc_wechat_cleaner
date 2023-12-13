@@ -9,15 +9,15 @@
   },
   "scripts": {
     "dev": "node app.js",
-    "build": "pkg .",
-    "build:win": "pkg app.js -t node12-win-x64 -o dist/wxwork_cleaner.exe"
+    "build": "pkg ."
   },
   "pkg": {
+    "scripts": "app.js",
     "targets": [
       "node12-win-x64"
     ],
     "outputPath": "dist",
-    "assets": []
+    "assets": ["node_modules/**/*.node"]
   },
   "author": "",
   "license": "ISC",
