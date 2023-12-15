@@ -7,8 +7,8 @@ const { removeNotNullDir } = require('./service/clear');
 const { notify } = require('./service/feishu');
 const dayjs = require('dayjs');
 
-const excludes = ['Global', 'Profiles']
-const clearDataDirNames = ['Image', 'Video']
+const excludes = ['Global', 'Profiles', 'qtCef']
+const clearDataDirNames = ['Cache', 'Emotion']
 
 const documentDir = path.join(os.homedir(), 'Documents')
 // 检查
@@ -41,7 +41,7 @@ const clear = async () => {
         if (excludes.includes(dir)) {
             continue
         }
-        const bigFileDir = path.join(wechat_dir, dir, 'Cache')
+        const bigFileDir = path.join(wechat_dir, dir)
         // 检查文件夹
         if (!fs.existsSync(bigFileDir)) {
             continue

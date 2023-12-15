@@ -1,6 +1,6 @@
 {
-  "name": "pc_wechat_cleaner",
-  "version": "1.0.0",
+  "name": "wxwork_cleaner",
+  "version": "1.0.1",
   "description": "",
   "main": "app.js",
   "bin": "./app.js",
@@ -9,15 +9,7 @@
   },
   "scripts": {
     "dev": "node app.js",
-    "build": "pkg ."
-  },
-  "pkg": {
-    "scripts": "app.js",
-    "targets": [
-      "node12-win-x64"
-    ],
-    "outputPath": "dist",
-    "assets": ["node_modules/**/*.node"]
+    "build": "node build.js"
   },
   "author": "",
   "license": "ISC",
