@@ -6,7 +6,7 @@ const deleteFile = async filePath => {
     try {
         fs.unlinkSync(filePath)
     } catch (error) {
-        console.error(error)
+        console.error(error.message)
     }
     return {
         success: true,
@@ -18,7 +18,7 @@ const deleteFolder = async dirPath => {
     try {
         fs.rmdirSync(dirPath)
     } catch (error) {
-        console.error(error)
+        console.error(error.message)
     }
     return {
         success: true,
@@ -63,4 +63,4 @@ const removeNotNullDir = async dir => {
     }
 }
 
-module.exports = { removeNotNullDir };
+module.exports = { removeNotNullDir, deleteFile };

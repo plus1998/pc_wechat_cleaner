@@ -1,11 +1,11 @@
 {
-  "name": "wxwork_cleaner",
-  "version": "1.0.1",
+  "name": "wxwork_cleaner_complete",
+  "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "bin": "./app.js",
   "engines": {
-    "node": "12.22.12"
+    "node": "14.21.3"
   },
   "scripts": {
     "dev": "node app.js",
@@ -14,8 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dayjs": "^1.11.10",
     "diskusage": "^1.2.0",
-    "enquirer": "^2.4.1"
+    "glob": "^10.3.10"
   }
 }
