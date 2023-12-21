@@ -61,35 +61,35 @@ const clear = async () => {
     console.log('空闲空间', freePercentText)
 }
 
-const countdown = async (seconds) => {
+const countdown = async (seconds, text) => {
     return new Promise(resolve => {
         if (seconds <= 0) {
             resolve();
         } else {
             process.stdout.clearLine();  // 清除当前输出行
             process.stdout.cursorTo(0);  // 将光标移动到行首
-            process.stdout.write(`${seconds} 秒内可以按 CTRL + C 取消`);  // 输出更新后的倒计时数值
+            process.stdout.write(`${seconds} ${text}`);  // 输出更新后的倒计时数值
             setTimeout(() => resolve(), 1000);
         }
     });
 }
 
-async function startCountdown(interval) {
+async function startCountdown(interval, cb, text) {
     let seconds = interval
     while (seconds > 0) {
-        await countdown(seconds);
+        await countdown(seconds, text);
         seconds--;
     }
     process.stdout.clearLine();  // 清除最后一行的倒计时数值
     process.stdout.cursorTo(0);  // 将光标移动到行首
-    console.log('开始清理');
-    await clear()
+    await cb()
 }
 
 const main = async () => {
     // 启动定时器
     console.log('删除配置', targets);
-    await startCountdown(5)
+    await startCountdown(5, clear, '秒内可以按 CTRL + C 取消');
+    await startCountdown(5, () => {}, '秒后退出');
 }
 
 main()
