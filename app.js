@@ -4,6 +4,7 @@ const os = require('os');
 const { getDiskSpace } = require('./service/disk');
 const { removeNotNullDir, deleteFile } = require('./service/clear');
 const { glob } = require('glob');
+const psList = require('ps-list');
 
 const ignore = ['Global/**', 'Profiles/**', 'qtCef/**', '**/WXWorkCefCache/**']
 const targets = [
@@ -24,7 +25,24 @@ if (!fs.existsSync(documentDir)) {
     fs.mkdirSync(documentDir)
 }
 
+// 杀死企业微信进程
+const killWxWork = async () => {
+    // 企业微信进程名
+    const process_name = 'WXWork.exe'
+    // 获取进程
+    const processes = await psList()
+    // 筛选进程
+    const wxwork_process = processes.find(process => process.name === process_name)
+    if (wxwork_process) {
+        // 杀死进程
+        process.kill(wxwork_process.pid)
+        console.log('已杀死企业微信进程')
+    }
+}
+
 const clear = async () => {
+    killWxWork()
+    await new Promise(resolve => setTimeout(resolve, 1000))
     // 微信默认文件夹
     const wechat_dir = path.join(documentDir, 'WXWork')
     // 检查目录是否存在
