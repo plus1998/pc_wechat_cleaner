@@ -1,6 +1,6 @@
 {
   "name": "wxwork_cleaner_complete",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "app.js",
   "bin": "./app.js",
@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "diskusage": "^1.2.0",
-    "glob": "^10.3.10",
-    "ps-list": "^7.2.0"
+    "glob": "^10.3.10"
   }
 }

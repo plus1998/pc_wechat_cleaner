@@ -4,7 +4,7 @@ const os = require('os');
 const { getDiskSpace } = require('./service/disk');
 const { removeNotNullDir, deleteFile } = require('./service/clear');
 const { glob } = require('glob');
-const psList = require('ps-list');
+const { execSync } = require('child_process');
 
 const ignore = ['Global/**', 'Profiles/**', 'qtCef/**', '**/WXWorkCefCache/**']
 const targets = [
@@ -25,6 +25,22 @@ if (!fs.existsSync(documentDir)) {
     fs.mkdirSync(documentDir)
 }
 
+const psList = async () => {
+    const ret = execSync('tasklist')
+    const lines = ret.toString('utf-8').split('\r\n')
+    const processes = []
+    for (const line of lines) {
+        const process = line.split('","')[0].split(' ')
+        if (process.length > 1) {
+            processes.push({
+                name: process.find(o => o.endsWith('exe')),
+                pid: process.find(o => /\d+/.test(o)),
+            })
+        }
+    }
+    return processes
+}
+
 // 杀死企业微信进程
 const killWxWork = async () => {
     // 企业微信进程名
@@ -35,7 +51,7 @@ const killWxWork = async () => {
     const wxwork_process = processes.find(process => process.name === process_name)
     if (wxwork_process) {
         // 杀死进程
-        process.kill(wxwork_process.pid)
+        execSync(`taskkill /pid ${wxwork_process.pid} /f`)
         console.log('已杀死企业微信进程')
     }
 }
@@ -107,7 +123,7 @@ const main = async () => {
     // 启动定时器
     console.log('删除配置', targets);
     await startCountdown(5, clear, '秒内可以按 CTRL + C 取消');
-    await startCountdown(5, () => {}, '秒后退出');
+    await startCountdown(5, () => { }, '秒后退出');
 }
 
 main()
